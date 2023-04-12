@@ -1,0 +1,114 @@
+/* Global Styles */
+* {
+    box-sizing: border-box;
+  }
+  
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+    color: #333;
+  }
+  
+  /* Form Styles */
+  .login-form {
+    margin: 50px auto;
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+    background-image: url('https://cdn.pixabay.com/photo/2016/02/19/11/36/office-1209640_960_720.jpg');
+    background-size: cover;
+  }
+  
+  .form-title {
+    margin-bottom: 20px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #007bff;
+  }
+  
+  .form-group {
+    margin-bottom: 20px;
+    text-align: left;
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #007bff;
+  }
+  
+  .form-group input,
+  .form-group select {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    width: 100%;
+    background-color: #f8f8f8;
+  }
+  
+  .form-btn {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 20px;
+  }
+  
+  .form-btn:hover {
+    background-color: #0062cc;
+  }
+  
+  .form-toggle-btn {
+    background-color: transparent;
+    border: none;
+    color: #007bff;
+    font-size: 14px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    margin-top: 20px;
+  }
+  
+  .form-toggle-btn:hover {
+    color: #0056b3;
+  }
+  
+  @media screen and (max-width: 480px) {
+    .login-form {
+      padding: 20px;
+    }
+  
+    .form-title {
+      font-size: 20px;
+    }
+  
+    .form-group label {
+      font-size: 14px;
+    }
+  
+    .form-group input,
+    .form-group select {
+      font-size: 14px;
+    }
+  
+    .form-btn {
+      font-size: 14px;
+      padding: 10px 15px;
+    }
+  
+    .form-toggle-btn {
+      font-size: 12px;
+    }
+  }
+  

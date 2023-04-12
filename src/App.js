@@ -5,6 +5,7 @@ import MovieDetailPage from "./pages/MovieDetailPage";
 import SeatSelectionPage from "./pages/SeatSelectionPage";
 import CheckoutPage from "./pages/CheckoutPage";
 import ConfirmationPage from "./pages/ConfirmationPage";
+import Login from "./pages/Login";
 
 const App = () => {
   return (
@@ -19,6 +20,7 @@ const App = () => {
         />
         <Route exact path="/checkout" element={<CheckoutPage />} />
         <Route exact path="/confirmation" element={<ConfirmationPage />} />
+        <Route exact path="/login" element={<Login />} />
       </Routes>
     </div>
   );
