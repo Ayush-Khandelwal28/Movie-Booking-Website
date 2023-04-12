@@ -1,10 +1,14 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import MovieCard from "../components/MovieCard";
 import "./MovieDetailPage.scss";
 
 const MovieDetailPage = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
+  function redirectToSeatSelection() {
+    navigate(`/seat-selection/${id}`);
+  }
   const movie = {
     id: 1,
     title: "The Godfather",
@@ -44,7 +48,7 @@ const MovieDetailPage = () => {
         <p className="movie-rating">
           <strong>IMDb Rating:</strong> {movie.rating}
         </p>
-        <button className="btn btn-primary">Book Now</button>
+        <button className="btn btn-primary" onClick={redirectToSeatSelection}>Book Now</button>
       </div>
     </div>
   );
