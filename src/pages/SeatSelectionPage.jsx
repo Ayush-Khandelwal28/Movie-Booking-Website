@@ -1,11 +1,18 @@
 import React, { useState } from "react";
 import "./SeatSelection.scss";
+import { useNavigate, useParams } from "react-router-dom";
 
 const rows = ["A", "B", "C", "D", "E", "F", "G", "H"];
 const seatsPerRow = 15;
 
 const SeatSelection = () => {
+  const { id } = useParams();
   const [selectedSeats, setSelectedSeats] = useState([]);
+  const navigate = useNavigate();
+
+  function redirectToCheckout() {
+    navigate(`/checkout`);
+  }
 
   const handleSeatClick = (row, seatNumber, color) => {
     const seat = `${row}${seatNumber}-${color}`;
@@ -147,7 +154,7 @@ const SeatSelection = () => {
         </ul>
       </div>
       <div className="button-div">
-      <button className="checkout_btn">Proceed to payment</button>
+      <button className="checkout_btn" onClick={redirectToCheckout}>Proceed to payment</button>
       </div>
     </div>
   );
