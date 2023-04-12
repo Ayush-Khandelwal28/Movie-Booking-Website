@@ -1,98 +1,156 @@
 import React, { useState } from "react";
-import SeatGrid from "../components/SeatGrid";
-import SeatTypeSelector from "../components/SeatTypeSelector";
-import Button from "../components/Button.jsx";
-import "./SeatSelectionPage.scss";
+import "./SeatSelection.scss";
 
-const rows = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
-const columns = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+const rows = ["A", "B", "C", "D", "E", "F", "G", "H"];
+const seatsPerRow = 15;
 
-const seats = {
-  gold: [
-    [1, 1, 0, 0, 0, 0, 0, 0, 1, 1],
-    [1, 1, 0, 0, 0, 0, 0, 0, 1, 1],
-    [0, 0, 1, 1, 0, 0, 1, 1, 0, 0],
-    [0, 0, 1, 1, 0, 0, 1, 1, 0, 0],
-    [0, 0, 0, 0, 1, 1, 0, 0, 0, 0],
-    [0, 0, 0, 0, 1, 1, 0, 0, 0, 0],
-    [1, 1, 0, 0, 0, 0, 0, 0, 1, 1],
-    [1, 1, 0, 0, 0, 0, 0, 0, 1, 1],
-  ],
-  platinum: [
-    [1, 1, 0, 0, 0, 0, 0, 0, 1, 1],
-    [1, 1, 0, 0, 0, 0, 0, 0, 1, 1],
-    [0, 0, 1, 1, 0, 0, 1, 1, 0, 0],
-    [0, 0, 1, 1, 0, 0, 1, 1, 0, 0],
-    [0, 0, 0, 0, 1, 1, 0, 0, 0, 0],
-    [0, 0, 0, 0, 1, 1, 0, 0, 0, 0],
-    [1, 1, 0, 0, 0, 0, 0, 0, 1, 1],
-    [1, 1, 0, 0, 0, 0, 0, 0, 1, 1],
-  ],
-  silver: [
-    [1, 1, 0, 0, 0, 0, 0, 0, 1, 1],
-    [1, 1, 0, 0, 0, 0, 0, 0, 1, 1],
-    [0, 0, 1, 1, 0, 0, 1, 1, 0, 0],
-    [0, 0, 1, 1, 0, 0, 1, 1, 0, 0],
-    [0, 0, 0, 0, 1, 1, 0, 0, 0, 0],
-    [0, 0, 0, 0, 1, 1, 0, 0, 0, 0],
-    [1, 1, 0, 0, 0, 0, 0, 0, 1, 1],
-    [1, 1, 0, 0, 0, 0, 0, 0, 1, 1],
-  ],
-};
-
-const SeatSelectionPage = () => {
-  // Define state variables for selected seats and selected seat type
+const SeatSelection = () => {
   const [selectedSeats, setSelectedSeats] = useState([]);
-  const [selectedSeatType, setSelectedSeatType] = useState("");
 
-  // Define a function to handle seat selection
-  const handleSeatSelect = (seat) => {
-    // Check if the seat is already selected
-    const seatIndex = selectedSeats.findIndex(
-      (selectedSeat) => selectedSeat.id === seat.id
-    );
-    if (seatIndex > -1) {
-      // Seat is already selected, so unselect it
-      setSelectedSeats((prevSelectedSeats) =>
-        prevSelectedSeats.filter((selectedSeat) => selectedSeat.id !== seat.id)
+  const handleSeatClick = (row, seatNumber, color) => {
+    const seat = `${row}${seatNumber}-${color}`;
+    if (selectedSeats.includes(seat)) {
+      setSelectedSeats(
+        selectedSeats.filter((selectedSeat) => selectedSeat !== seat)
       );
     } else {
-      // Seat is not yet selected, so select it
-      setSelectedSeats((prevSelectedSeats) => [...prevSelectedSeats, seat]);
+      setSelectedSeats([...selectedSeats, seat]);
     }
   };
 
-  // Define a function to handle seat type selection
-  const handleSeatTypeSelect = (seatType) => {
-    setSelectedSeatType(seatType);
-  };
-
-  // Define a function to handle the "Proceed to Payment" button click
-  const handleProceedToPayment = () => {
-    // Do something to proceed to the payment page
-    console.log("Proceeding to payment...");
+  const isSeatSelected = (row, seatNumber, color) => {
+    return selectedSeats.includes(`${row}${seatNumber}-${color}`);
   };
 
   return (
-    <div className="seat-selection-page">
-      <h1 className="seat-selection-title">Select Your Seats</h1>
-      <SeatTypeSelector
-        selectedSeatType={selectedSeatType}
-        onSeatTypeSelect={handleSeatTypeSelect}
-      />
-      <SeatGrid
-        selectedSeats={selectedSeats}
-        selectedSeatType={selectedSeatType}
-        onSeatSelect={handleSeatSelect}
-        seats={seats}
-      />
-      <Button
-        label="Proceed to Payment"
-        disabled={!selectedSeats.length || !selectedSeatType}
-        onClick={handleProceedToPayment}
-      />
+    <div className="seat-selection">
+      <h2>Select your seats</h2>
+      <div className="screen">Screen</div>
+      <div className="seats">
+        <div className="row silver-row">
+          {Array(seatsPerRow)
+            .fill()
+            .map((_, index) => {
+              const seatNumber = index + 1;
+              return (
+                <div
+                  className={`seat silver ${
+                    isSeatSelected("D", seatNumber, "silver") ? "selected" : ""
+                  }`}
+                  key={`C${seatNumber}-silver`}
+                  onClick={() => handleSeatClick("D", seatNumber, "silver")}
+                >
+                  {seatNumber}
+                </div>
+              );
+            })}
+        </div>
+        <div className="row silver-row">
+          {Array(seatsPerRow)
+            .fill()
+            .map((_, index) => {
+              const seatNumber = index + 1;
+              return (
+                <div
+                  className={`seat silver ${
+                    isSeatSelected("E", seatNumber, "silver") ? "selected" : ""
+                  }`}
+                  key={`C${seatNumber}-silver`}
+                  onClick={() => handleSeatClick("E", seatNumber, "silver")}
+                >
+                  {seatNumber}
+                </div>
+              );
+            })}
+        </div>
+        <div className="row silver-row">
+          {Array(seatsPerRow)
+            .fill()
+            .map((_, index) => {
+              const seatNumber = index + 1;
+              return (
+                <div
+                  className={`seat silver ${
+                    isSeatSelected("F", seatNumber, "silver") ? "selected" : ""
+                  }`}
+                  key={`C${seatNumber}-silver`}
+                  onClick={() => handleSeatClick("F", seatNumber, "silver")}
+                >
+                  {seatNumber}
+                </div>
+              );
+            })}
+        </div>
+        <div className="row gold-row">
+          {Array(seatsPerRow)
+            .fill()
+            .map((_, index) => {
+              const seatNumber = index + 1;
+              return (
+                <div
+                  className={`seat gold ${
+                    isSeatSelected("B", seatNumber, "gold") ? "selected" : ""
+                  }`}
+                  key={`B${seatNumber}-gold`}
+                  onClick={() => handleSeatClick("B", seatNumber, "gold")}
+                >
+                  {seatNumber}
+                </div>
+              );
+            })}
+        </div>
+        <div className="row gold-row">
+          {Array(seatsPerRow)
+            .fill()
+            .map((_, index) => {
+              const seatNumber = index + 1;
+              return (
+                <div
+                  className={`seat gold ${
+                    isSeatSelected("C", seatNumber, "gold") ? "selected" : ""
+                  }`}
+                  key={`B${seatNumber}-gold`}
+                  onClick={() => handleSeatClick("C", seatNumber, "gold")}
+                >
+                  {seatNumber}
+                </div>
+              );
+            })}
+        </div>
+        <div className="row platinum-row">
+          {Array(seatsPerRow)
+            .fill()
+            .map((_, index) => {
+              const seatNumber = index + 1;
+              return (
+                <div
+                  className={`seat platinum ${
+                    isSeatSelected("A", seatNumber, "platinum")
+                      ? "selected"
+                      : ""
+                  }`}
+                  key={`A${seatNumber}-platinum`}
+                  onClick={() => handleSeatClick("A", seatNumber, "platinum")}
+                >
+                  {seatNumber}
+                </div>
+              );
+            })}
+        </div>
+      </div>
+      <div className="selected-seats">
+        <h3>Selected Seats:</h3>
+        <ul>
+          {selectedSeats.map((seat) => (
+            <li key={seat}>{seat}</li>
+          ))}
+        </ul>
+      </div>
+      <div className="button-div">
+      <button className="checkout_btn">Proceed to payment</button>
+      </div>
     </div>
   );
 };
 
-export default SeatSelectionPage;
+export default SeatSelection;
