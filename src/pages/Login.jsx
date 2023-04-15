@@ -9,19 +9,22 @@ function Login(){
     async function submit(e){
         e.preventDefault();
         try{
-        await axios.post("http://localhost:80/login",{
+        await axios.post("http://localhost/login",{
             email,password
         }) 
         .then(res=>{
-            if(res.data="exist"){
+            if(res.data=="exist"){
                 history("/home",{state:{id:email}}); // redirect to home page
             }
-            else if(res.data="not exist"){
+            else if(res.data=="notexist"){
                 alert("User have not signed up yet")
+            }
+            else if(res.data=="wrong password"){
+                alert("Wrong password")
             }
         }) 
         .catch(e=>{
-            alert("Wrong details");
+            alert("Login failed");
             console.log(e)
         })
     }

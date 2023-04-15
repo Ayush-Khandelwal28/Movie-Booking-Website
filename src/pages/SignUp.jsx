@@ -25,12 +25,12 @@ function SignUp() {
                     if (res.data == "exist") {
                         alert("User already exists");
                     }
-                    else if (res.data == "not exist") {
+                    else if (res.data == "notexist") {
                         history("/home", { state: { id: email } }); // redirect to home page
                     }
                 })
                 .catch(e => {
-                    alert("Wrong details");
+                    alert("Sign Up failed");
                     console.log(e)
                 })
         }
@@ -48,23 +48,23 @@ function SignUp() {
             <form method="POST">
                 <label>
                     Email
-                    <input type="email" onChange={(e) => { setEmail(e.target.value) }} placeholder="Email" />
+                    <input type="email" onChange={(e) => { setEmail(e.target.value) }} placeholder="Email" required/>
                 </label>
                 <label>
                     First Name
-                    <input type="text" onChange={(e) => { setFirstName(e.target.value) }} placeholder="First Name" />
+                    <input type="text" onChange={(e) => { setFirstName(e.target.value) }} placeholder="First Name" required/>
                 </label>
                 <label>
                     Last Name
-                    <input type="text" onChange={(e) => { setLastName(e.target.value) }} placeholder="Last Name" />
+                    <input type="text" onChange={(e) => { setLastName(e.target.value) }} placeholder="Last Name" required/>
                 </label>
                 <label>
                     Password
-                    <input type="password" onChange={(e) => { setPassword(e.target.value) }} placeholder="password" />
+                    <input type="password" onChange={(e) => { setPassword(e.target.value) }} placeholder="password" required/>
                 </label>
                 <label>
                     Confirm Password
-                    <input type="password" value={confirmpassword} onChange={handleConfirmPasswordChange} />
+                    <input type="password" value={confirmpassword} onChange={handleConfirmPasswordChange} required/>
                 </label>
                 {!passwordsMatch && <p>Passwords do not match</p>}
                 <input type="submit" onClick={submit} />

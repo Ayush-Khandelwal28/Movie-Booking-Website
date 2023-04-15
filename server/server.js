@@ -8,6 +8,15 @@ app.use(express.urlencoded({extended:true}));
 app.use(cors());
 require("./models/db");
 const signUP=require("./models/signUP");
+const bcrypt=require("bcryptjs");
+const securePassword=async (password)=>{
+    const passwordHash=await bcrypt.hash(password,10);
+    console.log(passwordHash);
+
+    const passwordMatch=await bcrypt.compare(password,passwordHash);
+    console.log(passwordMatch);
+}
+// securePassword("Arghadeep23");
 // app.use()
 // app.get("/api",(req,res)=>{
 //     res.json({"users":["userOne","userTwo","userThree"]});
@@ -17,13 +26,12 @@ const signUP=require("./models/signUP");
 // })
 app.post("/signup",async (req,res)=>{
     const {email,firstname,lastname,password,confirmpassword}=req.body;
-    console.log(req.body);
-    console.log(email);
+    console.log("New sign up request by:",email);
     const data=new signUP({
         email:email,
         firstName:firstname,
         lastName:lastname,
-        password:password,
+        password:password
     })
     try{
         const check=await signUP.findOne({email:email});
@@ -32,7 +40,7 @@ app.post("/signup",async (req,res)=>{
         }
         else 
         {
-            res.json("not exist");
+            res.json("notexist");
             data.save();
         }
     }
@@ -46,11 +54,15 @@ app.post("/login",async (req,res)=>{
     try{
         const check=await signUP.findOne({email:email});
         if(check){
+            const passwordMatch=await bcrypt.compare(password,check.password);
+            if(passwordMatch)
             res.json("exist");
+            else
+            res.json("wrong password");
         }
         else 
         {
-            res.json("not exist");
+            res.json("notexist");
         }
     }
     catch(err)
