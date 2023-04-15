@@ -16,14 +16,6 @@ const securePassword=async (password)=>{
     const passwordMatch=await bcrypt.compare(password,passwordHash);
     console.log(passwordMatch);
 }
-// securePassword("Arghadeep23");
-// app.use()
-// app.get("/api",(req,res)=>{
-//     res.json({"users":["userOne","userTwo","userThree"]});
-// });
-// app.get("/",(req,res)=>{
-    
-// })
 app.post("/signup",async (req,res)=>{
     const {email,firstname,lastname,password,confirmpassword}=req.body;
     console.log("New sign up request by:",email);
@@ -51,6 +43,7 @@ app.post("/signup",async (req,res)=>{
 })
 app.post("/login",async (req,res)=>{
     const {email,password}=req.body;
+    console.log('Login request by:',email);
     try{
         const check=await signUP.findOne({email:email});
         if(check){
@@ -70,6 +63,14 @@ app.post("/login",async (req,res)=>{
         console.log('not exist');
     }
 })
+// const jwt=require("jsonwebtoken");
+// const createToken=async()=>{
+//     const token = await jwt.sign({_id:"643a99a3484378291904363c"},"ihatedoingthebackendofthisshittyprojectallalone");
+//     console.log(token);
+//     const userVer=await jwt.verify(token,"ihatedoingthebackendofthisshittyprojectallalone");
+//     console.log(userVer);
+// };
+createToken();
 app.listen(80,()=>{
     console.log('Listening on port 80');
 })

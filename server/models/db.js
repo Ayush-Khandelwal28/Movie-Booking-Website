@@ -1,6 +1,6 @@
 
 const mongoose=require('mongoose');
-mongoose.connect('mongodb://127.0.0.1:27017/movieMania',{
+mongoose.connect('mongodb+srv://Arghadeep:simcity2013@cluster0.lkscjpk.mongodb.net/movieMania',{
     useNewUrlParser:true,
     useUnifiedTopology:true
 })
