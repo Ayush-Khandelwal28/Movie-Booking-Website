@@ -3,6 +3,7 @@ const app=express();
 const mongoose=require('mongoose');
 const path=require('path'); 
 const cors=require('cors');
+const jwt=require("jsonwebtoken");
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 app.use(cors());
@@ -33,6 +34,7 @@ app.post("/signup",async (req,res)=>{
         else 
         {
             res.json("notexist");
+            const token=await data.generateAuthToken();
             data.save();
         }
     }
@@ -48,6 +50,8 @@ app.post("/login",async (req,res)=>{
         const check=await signUP.findOne({email:email});
         if(check){
             const passwordMatch=await bcrypt.compare(password,check.password);
+            const token=await check.generateAuthToken(); 
+            console.log("token is:",token);
             if(passwordMatch)
             res.json("exist");
             else
@@ -63,11 +67,13 @@ app.post("/login",async (req,res)=>{
         console.log('not exist');
     }
 })
-// const jwt=require("jsonwebtoken");
+
 // const createToken=async()=>{
-//     const token = await jwt.sign({_id:"643a99a3484378291904363c"},"ihatedoingthebackendofthisshittyprojectallalone");
+//     const token = await jwt.sign({_id:"643a99a3484378291904363c"},"thequickbrownfoxjumpsoverthelazydog",{
+//         expiresIn:"2 seconds"
+//     });
 //     console.log(token);
-//     const userVer=await jwt.verify(token,"ihatedoingthebackendofthisshittyprojectallalone");
+//     const userVer=await jwt.verify(token,"thequickbrownfoxjumpsoverthelazydog");
 //     console.log(userVer);
 // };
 // createToken();
