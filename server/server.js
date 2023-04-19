@@ -1,6 +1,5 @@
 const express=require('express');
 const app=express(); 
-const mongoose=require('mongoose');
 const path=require('path'); 
 const cors=require('cors');
 const jwt=require("jsonwebtoken");
@@ -9,6 +8,7 @@ app.use(express.urlencoded({extended:true}));
 app.use(cors());
 require("./models/db");
 const signUP=require("./models/signUP");
+const movieForm=require("./models/movieForm");
 const bcrypt=require("bcryptjs");
 const securePassword=async (password)=>{
     const passwordHash=await bcrypt.hash(password,10);
@@ -67,7 +67,35 @@ app.post("/login",async (req,res)=>{
         console.log('not exist');
     }
 })
-
+app.post("/movieForm",async (req,res)=>{
+    const {movieName,duration,rating,director,genre,leadActor,leadActress,description} = req.body; 
+    console.log('Movie being added is:',movieName);
+    const data=new movieForm({
+        movieName:movieName,
+        duration:duration,
+        rating:rating,
+        director:director,
+        genre:genre,
+        leadActor:leadActor,
+        leadActress:leadActress,
+        description:description
+    })
+    try{
+        const check=await movieForm.findOne({movieName:movieName});
+        if(check){
+            res.json("exist");
+        }
+        else 
+        {
+            res.json("notexist");
+            data.save();
+        }
+    }
+    catch(err)
+    {
+        console.log('we got a error');
+    }
+})
 // const createToken=async()=>{
 //     const token = await jwt.sign({_id:"643a99a3484378291904363c"},"thequickbrownfoxjumpsoverthelazydog",{
 //         expiresIn:"2 seconds"

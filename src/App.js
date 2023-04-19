@@ -8,6 +8,7 @@ import ConfirmationPage from "./pages/ConfirmationPage";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
+import MovieForm from "./pages/MovieForm";
 const App = () => {
   return (
     <div className="app">
@@ -24,6 +25,7 @@ const App = () => {
         <Route exact path="/home" element={<Home />} />
         <Route exact path="/login" element={<Login />} />
         <Route exact path="/signup" element={<SignUp />} />
+        <Route exact path="/movieForm" element={<MovieForm />} />
       </Routes>
     </div>
   );
