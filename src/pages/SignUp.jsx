@@ -47,7 +47,7 @@ function SignUp() {
             <h1>Welcome to MovieMania</h1>
             <form method="POST">
                 <label>
-                    Email
+                    Email    
                     <input type="email" onChange={(e) => { setEmail(e.target.value) }} placeholder="Email" required/>
                 </label>
                 <label>
@@ -60,11 +60,11 @@ function SignUp() {
                 </label>
                 <label>
                     Password
-                    <input type="password" onChange={(e) => { setPassword(e.target.value) }} placeholder="password" required/>
+                    <input type="password" onChange={(e) => { setPassword(e.target.value) }} placeholder="Password" required/>
                 </label>
                 <label>
                     Confirm Password
-                    <input type="password" value={confirmpassword} onChange={handleConfirmPasswordChange} required/>
+                    <input type="password" value={confirmpassword} onChange={handleConfirmPasswordChange} placeholder="Confirm password" required/>
                 </label>
                 {!passwordsMatch && <p>Passwords do not match</p>}
                 <input type="submit" onClick={submit} />
