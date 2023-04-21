@@ -6,49 +6,61 @@ import "./MovieDetailPage.scss";
 const MovieDetailPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  
   function redirectToSeatSelection() {
     navigate(`/seat-selection/${id}`);
   }
-  const movie = {
+  
+  const movie ={
     id: 1,
-    title: "The Godfather",
-    release: "March 15, 1972",
-    genre: "Crime, Drama",
+    title: "Avengers: Endgame",
+    release: "April 26, 2019",
+    genre: "Action, Adventure, Sci-Fi",
     poster:
-      "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/rPdtLWNsZmAtoZl9PK7S2wE3qiS.jpg",
-    plot: "The aging patriarch of an organized crime dynasty transfers control of his clandestine empire to his reluctant son.",
-    cast: ["Marlon Brando", "Al Pacino", "James Caan"],
-    director: "Francis Ford Coppola",
-    duration: "2h 55min",
-    rating: "9.2/10",
+      "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/or06FN3Dka5tukK1e9sl16pB3iy.jpg",
+    plot:
+      "After the devastating events of Avengers: Infinity War (2018), the universe is in ruins. With the help of remaining allies, the Avengers assemble once more in order to reverse Thanos' actions and restore balance to the universe.",
+    cast: [
+      "Robert Downey Jr.",
+      "Chris Evans",
+      "Mark Ruffalo",
+      "Chris Hemsworth",
+    ],
+    director: "Anthony Russo, Joe Russo",
+    duration: "3h 1min",
+    rating: "8.4/10",
   };
 
   return (
     <div className="movie-detail-page">
-      <MovieCard movie={movie} />
-      <div className="movie-details">
-        <h2 className="movie-title">{movie.title}</h2>
-        <p className="movie-release">{movie.release}</p>
-        <p className="movie-genre">{movie.genre}</p>
-        <p className="movie-plot">{movie.plot}</p>
-        <div className="movie-cast">
-          <h4>Cast:</h4>
-          <ul>
-            {movie.cast.map((actor) => (
-              <li key={actor}>{actor}</li>
-            ))}
-          </ul>
+      <div className="movie-container">
+        <div className="poster-container">
+          <img className="poster" src={movie.poster} alt={movie.title} />
         </div>
-        <p className="movie-director">
-          <strong>Director:</strong> {movie.director}
-        </p>
-        <p className="movie-duration">
-          <strong>Duration:</strong> {movie.duration}
-        </p>
-        <p className="movie-rating">
-          <strong>IMDb Rating:</strong> {movie.rating}
-        </p>
-        <button className="btn btn-primary" onClick={redirectToSeatSelection}>Book Now</button>
+        <div className="movie-details">
+          <h2 className="movie-title">{movie.title}</h2>
+          <p className="movie-release">{movie.release}</p>
+          <p className="movie-genre">{movie.genre}</p>
+          <p className="movie-plot">{movie.plot}</p>
+          <div className="movie-cast">
+            <h4>Cast:</h4>
+            <ul>
+              {movie.cast.map((actor) => (
+                <li key={actor}>{actor}</li>
+              ))}
+            </ul>
+          </div>
+          <p className="movie-director">
+            <strong>Director:</strong> {movie.director}
+          </p>
+          <p className="movie-duration">
+            <strong>Duration:</strong> {movie.duration}
+          </p>
+          <p className="movie-rating">
+            <strong>IMDb Rating:</strong> {movie.rating}
+          </p>
+          <button className="btn btn-primary" onClick={redirectToSeatSelection}>Book Now</button>
+        </div>
       </div>
     </div>
   );
