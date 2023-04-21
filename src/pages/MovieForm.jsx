@@ -5,12 +5,17 @@ function MovieForm() {
     const [movieName, setMovieName] = useState("");
     const [duration, setDuration] = useState("");
     const [rating, setRating] = useState("");
+    const [image, setImage] = useState("");
     const [director, setDirector] = useState("");
     const [genre, setGenre] = useState("");
     const [leadActor, setLeadActor] = useState("");
     const [leadActress, setLeadActress] = useState("");
     const [description, setDescription] = useState("");
-
+    
+    function handleImage(e){
+        console.log(e.target.files)
+        setImage(e.target.files[0])
+    }      
     async function submit(e) {
         e.preventDefault();
         if (isNaN(duration)) {
@@ -86,6 +91,15 @@ function MovieForm() {
                             setRating(e.target.value);
                         }}
                         placeholder="IMDB Rating"
+                        required
+                    />
+                </label>
+                <label>
+                    Movie Poster
+                    <input
+                        type="file"
+                        onChange={handleImage}
+                        placeholder="Movie Poster"
                         required
                     />
                 </label>
