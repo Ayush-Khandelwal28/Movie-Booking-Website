@@ -107,6 +107,19 @@ app.post("/movieForm",async (req,res)=>{
 //     console.log(userVer);
 // };
 // createToken();
+
+
+app.get("/movies",async (req,res)=>{
+    const data=await movieForm.find();
+    res.json(data);
+});
+
+
+app.get("/movies/:id",async (req,res)=>{
+    const id=req.params.id;
+    const data=await movieForm.findById(id);
+    res.json(data);
+});
 app.listen(80,()=>{
     console.log('Listening on port 80');
 })

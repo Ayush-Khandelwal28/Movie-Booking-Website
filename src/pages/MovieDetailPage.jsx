@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import MovieCard from "../components/MovieCard";
 import "./MovieDetailPage.scss";
@@ -11,25 +11,17 @@ const MovieDetailPage = () => {
     navigate(`/seat-selection/${id}`);
   }
   
-  const movie ={
-    id: 1,
-    title: "Avengers: Endgame",
-    release: "April 26, 2019",
-    genre: "Action, Adventure, Sci-Fi",
-    poster:
-      "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/or06FN3Dka5tukK1e9sl16pB3iy.jpg",
-    plot:
-      "After the devastating events of Avengers: Infinity War (2018), the universe is in ruins. With the help of remaining allies, the Avengers assemble once more in order to reverse Thanos' actions and restore balance to the universe.",
-    cast: [
-      "Robert Downey Jr.",
-      "Chris Evans",
-      "Mark Ruffalo",
-      "Chris Hemsworth",
-    ],
-    director: "Anthony Russo, Joe Russo",
-    duration: "3h 1min",
-    rating: "8.4/10",
-  };
+  const [movie,setMovie] = useState({});
+
+  useEffect(() => {
+    async function fetchMovie() {
+      const response = await fetch(`/movies/${id}`);
+      const data = await response.json();
+      console.log(data);
+      setMovie(data);
+    }
+    fetchMovie();
+  }, [id]);
 
   return (
     <div className="movie-detail-page">
@@ -45,9 +37,8 @@ const MovieDetailPage = () => {
           <div className="movie-cast">
             <h4>Cast:</h4>
             <ul>
-              {movie.cast.map((actor) => (
-                <li key={actor}>{actor}</li>
-              ))}
+                <li key={movie.leadActor}>{movie.leadActor}</li>
+                <li key={movie.leadActress}>{movie.leadActress}</li>
             </ul>
           </div>
           <p className="movie-director">

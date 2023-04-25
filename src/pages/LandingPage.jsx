@@ -7,7 +7,7 @@ const LandingPage = () => {
   // Sample movie data
   const [movies, setMovies] = useState([
     {
-      id: 1,
+      _id: 1,
       title: "The Shawshank Redemption",
       poster: "https://i.ebayimg.com/images/g/XxMAAOSw~zFg4aCs/s-l500.jpg",
       releaseDate: "1994-10-14",
@@ -22,7 +22,7 @@ const LandingPage = () => {
       trailer: "https://www.youtube.com/watch?v=6hB3S9bIaco",
     },
     {
-      id: 2,
+      _id: 2,
       title: "The Godfather",
       poster: "https://m.media-amazon.com/images/M/MV5BM2MyNjYxNmUtYTAwNi00MTYxLWJmNWYtYzZlODY3ZTk3OTFlXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_.jpg",
       releaseDate: "1972-03-24",
@@ -37,7 +37,7 @@ const LandingPage = () => {
       trailer: "https://www.youtube.com/watch?v=sY1S34973zA",
     },
     {
-      id: 3,
+      _id: 3,
       title: "The Dark Knight",
       poster: "https://i.ebayimg.com/images/g/eO4AAOSwUAVeag1b/s-l1600.jpg",
       releaseDate: "2008-07-18",
@@ -91,6 +91,15 @@ const LandingPage = () => {
     });
   };
 
+  useEffect(() => {
+    async function fetchMovies() {
+      const response = await fetch("/movies");
+      const data = await response.json();
+      setMovies(data);
+    }
+    fetchMovies();
+  }, []);
+
   const filteredMovies = getFilteredMovies();
 
   return (
@@ -130,7 +139,7 @@ const LandingPage = () => {
 
       <div className="movie-list">
         {filteredMovies.map((movie) => (
-          <Link to={`/movie/${movie.id}`} key={movie.id}>
+          <Link to={`/movie/${movie._id}`} key={movie.id}>
             <MovieCard movie={movie} />
           </Link>
         ))}
