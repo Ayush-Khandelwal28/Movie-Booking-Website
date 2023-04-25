@@ -9,7 +9,7 @@ const LandingPage = () => {
     {
       id: 1,
       title: "The Shawshank Redemption",
-      poster: "https://via.placeholder.com/150x225.png?text=Poster",
+      poster: "https://i.ebayimg.com/images/g/XxMAAOSw~zFg4aCs/s-l500.jpg",
       releaseDate: "1994-10-14",
       language: "English",
       genre: "Drama",
@@ -24,7 +24,7 @@ const LandingPage = () => {
     {
       id: 2,
       title: "The Godfather",
-      poster: "https://via.placeholder.com/150x225.png?text=Poster",
+      poster: "https://m.media-amazon.com/images/M/MV5BM2MyNjYxNmUtYTAwNi00MTYxLWJmNWYtYzZlODY3ZTk3OTFlXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_.jpg",
       releaseDate: "1972-03-24",
       language: "English",
       genre: "Crime, Drama",
@@ -39,7 +39,7 @@ const LandingPage = () => {
     {
       id: 3,
       title: "The Dark Knight",
-      poster: "https://via.placeholder.com/150x225.png?text=Poster",
+      poster: "https://i.ebayimg.com/images/g/eO4AAOSwUAVeag1b/s-l1600.jpg",
       releaseDate: "2008-07-18",
       language: "English",
       genre: "Action, Crime, Drama",

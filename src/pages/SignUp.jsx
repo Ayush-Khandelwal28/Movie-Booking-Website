@@ -17,6 +17,23 @@ function SignUp() {
             setPasswordsMatch(false);
             return;
         }
+        if (password.length < 8) {
+            alert("Password must be at least 8 characters long!!")
+            return;
+        }
+        if (firstname.length == 0) {
+            alert("One or more fields cannot be empty!!")
+            return;
+        }
+        if (lastname.length == 0) {
+            alert("One or more fields cannot be empty!!")
+            return;
+        }
+        if (email.length == 0) {
+            alert("One or more fields cannot be empty!!")
+            return;
+        }
+        
         try {
             await axios.post("http://localhost/signup", {
                 email, firstname, lastname, password, confirmpassword
@@ -26,7 +43,7 @@ function SignUp() {
                         alert("User already exists");
                     }
                     else if (res.data == "notexist") {
-                        history("/home", { state: { id: email } }); // redirect to home page
+                        history("/", { state: { id: email } }); // redirect to home page
                     }
                 })
                 .catch(e => {

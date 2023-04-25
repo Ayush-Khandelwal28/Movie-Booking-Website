@@ -2,10 +2,13 @@ import React, { useEffect, useState } from "react"
 import axios from "axios"
 import './Login.scss'
 import { useNavigate, Link } from "react-router-dom"
+import useAuth from "../hooks/useAuth"
+
 function Login() {
     const history = useNavigate()
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+    const auth = useAuth();
     async function submit(e) {
         e.preventDefault();
         try {
@@ -13,13 +16,17 @@ function Login() {
                 email, password
             })
                 .then(res => {
-                    if (res.data == "exist") {
-                        history("/home", { state: { id: email } }); // redirect to home page
-                    }
-                    else if (res.data == "notexist") {
+                    if (res.data == "notexist") {
+                        console.log(res);
                         alert("User have not signed up yet")
                     }
-                    else if (res.data == "wrong password") {
+                    else if (res.data != "") {
+                        auth.login(res.data);
+                        console.log(auth);
+                        localStorage.setItem('token',res.data);
+                        history("/", { state: { id: email } }); // redirect to home page
+                    }
+                    else if (res.data == "") {
                         alert("Wrong password")
                     }
                 })

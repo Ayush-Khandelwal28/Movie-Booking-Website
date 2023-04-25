@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./SeatSelection.scss";
 import { useNavigate, useParams } from "react-router-dom";
 
@@ -6,12 +6,21 @@ const rows = ["A", "B", "C", "D", "E", "F", "G", "H"];
 const seatsPerRow = 15;
 
 const SeatSelection = () => {
+
   const { id } = useParams();
   const [selectedSeats, setSelectedSeats] = useState([]);
   const navigate = useNavigate();
+  useEffect(() => {
+    if (localStorage.getItem('token') == null) {
+      navigate("/login");
+    }
+  },[]);
 
   function redirectToCheckout() {
-    navigate(`/checkout`);
+    if (selectedSeats != 0)
+      navigate(`/checkout`);
+    else
+      alert('You have not selected any seats');
   }
 
   const handleSeatClick = (row, seatNumber, color) => {
@@ -30,6 +39,7 @@ const SeatSelection = () => {
   };
 
   return (
+    <div className="page">
     <div className="seat-selection">
       <h2>Select your seats</h2>
       <div className="screen">Screen</div>
@@ -156,7 +166,8 @@ const SeatSelection = () => {
       <div className="button-div">
       <button className="checkout_btn" onClick={redirectToCheckout}>Proceed to payment</button>
       </div>
-    </div>
+      </div>
+      </div>
   );
 };
 

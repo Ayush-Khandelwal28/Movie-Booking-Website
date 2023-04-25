@@ -1,8 +1,28 @@
-.seat-selection {
+.page{
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 2rem;
+    justify-content: center;
+    height: 100vh;
+    background: linear-gradient(to bottom right, #000002, #2727e3);
+
+}
+
+.seat-selection {
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1000px;
+  background-color: rgba(255, 255, 255, 0.5); /* Set the translucent background color */
+  padding: 30px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0rem;
     h2 {
       font-size: 2rem;
       margin-bottom: 1rem;
@@ -63,7 +83,7 @@
     }
   
     .selected-seats {
-      margin-top: 2rem;
+      margin-top: 0rem;
         display: flex;
         width: 100vw;
         align-items: center;
@@ -92,6 +112,7 @@
   
   .checkout_btn {
     display: inline-block;
+    margin-bottom: 1rem;
     padding: 10px 20px;
     font-size: 1rem;
     font-weight: bold;

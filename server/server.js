@@ -53,9 +53,9 @@ app.post("/login",async (req,res)=>{
             const token=await check.generateAuthToken(); 
             console.log("token is:",token);
             if(passwordMatch)
-            res.json("exist");
+            res.json(token);
             else
-            res.json("wrong password");
+            res.json("");
         }
         else 
         {
