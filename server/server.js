@@ -68,20 +68,22 @@ app.post("/login",async (req,res)=>{
     }
 })
 app.post("/movieForm",async (req,res)=>{
-    const {movieName,duration,rating,director,genre,leadActor,leadActress,description} = req.body; 
-    console.log('Movie being added is:',movieName);
+    const {title,duration,rating,poster,director,genre,leadActor,leadActress,plot,release} = req.body; 
+    console.log('Movie being added is:',title);
     const data=new movieForm({
-        movieName:movieName,
+        title:title,
         duration:duration,
         rating:rating,
+        poster:poster,
         director:director,
         genre:genre,
         leadActor:leadActor,
         leadActress:leadActress,
-        description:description
+        plot:plot,
+        release:release
     })
     try{
-        const check=await movieForm.findOne({movieName:movieName});
+        const check=await movieForm.findOne({title:title});
         if(check){
             res.json("exist");
         }
@@ -93,7 +95,7 @@ app.post("/movieForm",async (req,res)=>{
     }
     catch(err)
     {
-        console.log('we got a error');
+        console.log(err);
     }
 })
 // const createToken=async()=>{

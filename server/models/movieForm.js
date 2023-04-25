@@ -2,11 +2,15 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 console.log("Hello from movieFrom schema");
 const movieFormSchema = new Schema({
-    movieName:{
+    title:{
         type:String,
         required:true
     },
     duration:{
+        type:String,
+        required:true
+    },
+    release:{
         type:String,
         required:true
     },
@@ -30,10 +34,14 @@ const movieFormSchema = new Schema({
         type:String,
         required:true
     },
-    description:{
+    plot:{
         type:String,
+    },
+    poster:{
+        type:String,
+        required:true
     }
-});
+}); 
 module.exports = mongoose.model("movieForm", movieFormSchema);
 
 // // movieName,

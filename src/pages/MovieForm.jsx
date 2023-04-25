@@ -2,20 +2,16 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./movieForm.scss";
 function MovieForm() {
-    const [movieName, setMovieName] = useState("");
+    const [title, setTitle] = useState("");
+    const [release, setRelease] = useState("");
     const [duration, setDuration] = useState("");
     const [rating, setRating] = useState("");
-    const [image, setImage] = useState("");
     const [director, setDirector] = useState("");
     const [genre, setGenre] = useState("");
+    const [poster, setPoster] = useState("");
     const [leadActor, setLeadActor] = useState("");
     const [leadActress, setLeadActress] = useState("");
-    const [description, setDescription] = useState("");
-    
-    function handleImage(e){
-        console.log(e.target.files)
-        setImage(e.target.files[0])
-    }      
+    const [plot, setPlot] = useState("");    
     async function submit(e) {
         e.preventDefault();
         if (isNaN(duration)) {
@@ -33,14 +29,16 @@ function MovieForm() {
         try {
             await axios
                 .post("http://localhost/movieForm", {
-                    movieName,
+                    title,
                     duration,
+                    release,
                     rating,
                     director,
                     genre,
                     leadActor,
                     leadActress,
-                    description,
+                    plot,
+                    poster
                 })
                 .then((res) => {
                     if (res.data === "exist") {
@@ -66,7 +64,7 @@ function MovieForm() {
                     <input
                         type="text"
                         onChange={(e) => {
-                            setMovieName(e.target.value);
+                            setTitle(e.target.value);
                         }}
                         placeholder="Movie Name"
                         required
@@ -97,8 +95,10 @@ function MovieForm() {
                 <label>
                     Movie Poster
                     <input
-                        type="file"
-                        onChange={handleImage}
+                        type="text"
+                        onChange={(e) => {
+                            setPoster(e.target.value);
+                        }}
                         placeholder="Movie Poster"
                         required
                     />
@@ -148,13 +148,24 @@ function MovieForm() {
                     />
                 </label>
                 <label>
-                    Description
+                    Plot
                     <input
                         type="textarea"
                         onChange={(e) => {
-                            setDescription(e.target.value);
+                            setPlot(e.target.value);
                         }}
                         placeholder="Description"
+                        required
+                    />
+                </label>
+                <label>
+                    Enter the release date
+                    <input
+                        type="text"
+                        onChange={(e) => {
+                            setRelease(e.target.value);
+                        }}
+                        placeholder="Release date"
                         required
                     />
                 </label>
