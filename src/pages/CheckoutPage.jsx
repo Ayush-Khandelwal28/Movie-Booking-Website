@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import './Checkout.scss';
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
 
 const Checkout = () => {
   const [firstName, setFirstName] = useState('');
@@ -10,11 +12,19 @@ const Checkout = () => {
   const [city, setCity] = useState('');
   const [state, setState] = useState('');
   const [zip, setZip] = useState('');
+  
 
+  const {seats,id,date,time} = useParams();
   const handleFormSubmit = (e) => {
     e.preventDefault();
     // handle form submission
   };
+
+  const handleSubmit = async (event)=>{
+    event.preventDefault();
+    const response = await axios.post(`/updateSeat/${seats}/${id}/${date}/${time}`);
+    console.log(response);
+  }
 
   return (
     <div className="checkout-container">
@@ -92,7 +102,7 @@ const Checkout = () => {
             onChange={(e) => setZip(e.target.value)}
           />
         </div>
-        <button type="submit" className="btn">
+        <button type="submit" className="btn" onClick={handleSubmit}>
           Place Order
         </button>
       </form>

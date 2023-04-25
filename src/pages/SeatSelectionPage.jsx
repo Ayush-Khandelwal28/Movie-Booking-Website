@@ -1,30 +1,46 @@
 import React, { useEffect, useState } from "react";
 import "./SeatSelection.scss";
 import { useNavigate, useParams } from "react-router-dom";
+import axios from "axios";
 
 const rows = ["A", "B", "C", "D", "E", "F", "G", "H"];
 const seatsPerRow = 15;
 
 const SeatSelection = () => {
 
-  const { id } = useParams();
+  const { id, date, time } = useParams();
   const [selectedSeats, setSelectedSeats] = useState([]);
+  const [booked, setBooked] = useState([]);
   const navigate = useNavigate();
+
   useEffect(() => {
     if (localStorage.getItem('token') == null) {
       navigate("/login");
     }
   },[]);
 
+  useEffect(()=>{
+    async function fetchSeats(){
+      const response = await axios.get(`/seats-selection/${id}/${date}/${time}`);
+      const data = await response.data;
+      setBooked(data);
+      console.log(data);
+    }
+    fetchSeats();
+  },[]);
+
   function redirectToCheckout() {
-    if (selectedSeats != 0)
-      navigate(`/checkout`);
+    if (selectedSeats != 0){
+      const arrayString = selectedSeats.join(',');
+      navigate(`/checkout/${arrayString}/${id}/${date}/${time}`);
+    }
     else
       alert('You have not selected any seats');
   }
 
   const handleSeatClick = (row, seatNumber, color) => {
     const seat = `${row}${seatNumber}-${color}`;
+    if(booked.includes(seat))return;
     if (selectedSeats.includes(seat)) {
       setSelectedSeats(
         selectedSeats.filter((selectedSeat) => selectedSeat !== seat)
@@ -37,6 +53,14 @@ const SeatSelection = () => {
   const isSeatSelected = (row, seatNumber, color) => {
     return selectedSeats.includes(`${row}${seatNumber}-${color}`);
   };
+
+  const isBooked = (row, seatNumber, color) => {
+    const d = `${row}${seatNumber}-${color}`;
+    if(booked.includes(d))
+    console.log(d);
+    return booked.includes(d);
+    // return null;
+  }
 
   return (
     <div className="page">
@@ -52,7 +76,7 @@ const SeatSelection = () => {
               return (
                 <div
                   className={`seat silver ${
-                    isSeatSelected("D", seatNumber, "silver") ? "selected" : ""
+                    isBooked("D",seatNumber,"silver")?"booked":isSeatSelected("D", seatNumber, "silver") ? "selected" : ""
                   }`}
                   key={`C${seatNumber}-silver`}
                   onClick={() => handleSeatClick("D", seatNumber, "silver")}
@@ -70,7 +94,7 @@ const SeatSelection = () => {
               return (
                 <div
                   className={`seat silver ${
-                    isSeatSelected("E", seatNumber, "silver") ? "selected" : ""
+                    isBooked("E",seatNumber,"silver")?"booked":isSeatSelected("E", seatNumber, "silver") ? "selected" : ""
                   }`}
                   key={`C${seatNumber}-silver`}
                   onClick={() => handleSeatClick("E", seatNumber, "silver")}
@@ -88,7 +112,7 @@ const SeatSelection = () => {
               return (
                 <div
                   className={`seat silver ${
-                    isSeatSelected("F", seatNumber, "silver") ? "selected" : ""
+                    isBooked("F",seatNumber,"silver")?"booked":isSeatSelected("F", seatNumber, "silver") ? "selected" : ""
                   }`}
                   key={`C${seatNumber}-silver`}
                   onClick={() => handleSeatClick("F", seatNumber, "silver")}
@@ -106,7 +130,7 @@ const SeatSelection = () => {
               return (
                 <div
                   className={`seat gold ${
-                    isSeatSelected("B", seatNumber, "gold") ? "selected" : ""
+                    isBooked("B",seatNumber,"gold")?"booked":isSeatSelected("B", seatNumber, "gold") ? "selected" : ""
                   }`}
                   key={`B${seatNumber}-gold`}
                   onClick={() => handleSeatClick("B", seatNumber, "gold")}
@@ -124,7 +148,7 @@ const SeatSelection = () => {
               return (
                 <div
                   className={`seat gold ${
-                    isSeatSelected("C", seatNumber, "gold") ? "selected" : ""
+                    isBooked("C",seatNumber,"gold")?"booked":isSeatSelected("C", seatNumber, "gold") ? "selected" : ""
                   }`}
                   key={`B${seatNumber}-gold`}
                   onClick={() => handleSeatClick("C", seatNumber, "gold")}
@@ -142,7 +166,7 @@ const SeatSelection = () => {
               return (
                 <div
                   className={`seat platinum ${
-                    isSeatSelected("A", seatNumber, "platinum")
+                    isBooked("A",seatNumber,"platinum")?"booked":isSeatSelected("A", seatNumber, "platinum")
                       ? "selected"
                       : ""
                   }`}

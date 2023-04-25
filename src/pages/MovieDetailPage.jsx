@@ -1,22 +1,23 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import axios from "axios";
 import MovieCard from "../components/MovieCard";
 import "./MovieDetailPage.scss";
 
 const MovieDetailPage = () => {
-  const { id } = useParams();
+  const { id,date,time } = useParams();
   const navigate = useNavigate();
   
   function redirectToSeatSelection() {
-    navigate(`/seat-selection/${id}`);
+    navigate(`/seat-selection/${id}/${date}/${time}`);
   }
   
   const [movie,setMovie] = useState({});
 
   useEffect(() => {
     async function fetchMovie() {
-      const response = await fetch(`/movies/${id}`);
-      const data = await response.json();
+      const response = await axios.get(`/movies/${id}`);
+      const data = await response.data;
       console.log(data);
       setMovie(data);
     }

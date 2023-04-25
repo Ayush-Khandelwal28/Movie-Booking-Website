@@ -9,6 +9,7 @@ app.use(cors());
 require("./models/db");
 const signUP=require("./models/signUP");
 const movieForm=require("./models/movieForm");
+const seatSelection = require('./models/seatSelectionModel')
 const bcrypt=require("bcryptjs");
 const securePassword=async (password)=>{
     const passwordHash=await bcrypt.hash(password,10);
@@ -120,6 +121,58 @@ app.get("/movies/:id",async (req,res)=>{
     const data=await movieForm.findById(id);
     res.json(data);
 });
+
+app.get("/seats-selection/:id/:date/:time",async (req,res)=>{
+    const id = req.params.id;
+    const date=req.params.date;
+    const time=req.params.time;
+    console.log(id);
+    console.log(date);
+    console.log(time);
+    try{
+        const data=await seatSelection.findOne({id:id,date:date,time:time});
+        console.log(data);
+        if(data)
+        res.json(data["seats"]);
+        else
+        res.json([]);
+    }
+    catch{
+        res.json([]);
+    }
+    // finally{
+    //     res.json(data);
+    // }
+});
+
+
+app.post("/updateSeat/:seats/:id/:date/:time",async (req,res)=>{
+    const seats=req.params.seats.split(",");
+    const id=req.params.id;
+    const date=req.params.date;
+    const time=req.params.time;
+    try{
+
+        const response = await seatSelection.findOneAndDelete({id:id,date:date,time:time});
+        const seat = [...seats];
+        if(response){
+            console.log(response["seats"]);
+            seat.push(...response["seats"])
+        }
+            const data=new seatSelection({
+                id:id,
+                date:date,
+                time:time,
+                seats:seat
+            })
+            data.save();
+        }
+    catch(e){
+        console.log(e);
+    }
+});
+
+
 app.listen(80,()=>{
     console.log('Listening on port 80');
 })
