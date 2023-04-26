@@ -6,11 +6,11 @@ import './LandingPage.scss'
 const LandingPage = () => {
   // Sample movie data
   const [movies, setMovies] = useState([]);
-  const [date,setDate] = useState((new Date()));
+  const [date,setDate] = useState((new Date()).toLocaleDateString().split('/'));
   const [time,setTime] = useState("morning");
 
   function handleDate(event){
-    setDate(event.target.value);
+    setDate(event.target.value.split('/'));
   }
 
   function handleTime(event){
