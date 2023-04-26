@@ -59,7 +59,7 @@ const nextFiveDays = Array.from({ length: 5 }, (_, i) => {
 
       <div className="movie-list">
         {movies.map((movie) => (
-          <Link to={`/movie/${movie._id}/${date}/${time}`} key={movie.id}>
+          <Link to={`/movie/${movie._id}/${date}/${time}`} key={movie.id} className="link__">
             <MovieCard movie={movie} />
           </Link>
         ))}
