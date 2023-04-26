@@ -21,9 +21,10 @@ function Login() {
                         alert("User have not signed up yet")
                     }
                     else if (res.data != "") {
-                        auth.login(res.data);
-                        console.log(auth);
-                        localStorage.setItem('token',res.data);
+                        auth.login(res.data.token);
+                        console.log(res.data.token);
+                        localStorage.setItem('token',res.data.token);
+                        localStorage.setItem('user',res.data.id);
                         history("/", { state: { id: email } }); // redirect to home page
                     }
                     else if (res.data == "") {

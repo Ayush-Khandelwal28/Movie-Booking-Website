@@ -39,10 +39,13 @@ function SignUp() {
                 email, firstname, lastname, password, confirmpassword
             })
                 .then(res => {
-                    if (res.data == "exist") {
+                    if (res.data === "exist") {
                         alert("User already exists");
                     }
-                    else if (res.data == "notexist") {
+                    else {
+                        console.log("data is"+res.data);
+                        localStorage.setItem('token',res.data.token);
+                        localStorage.setItem('user',res.data.id);
                         history("/", { state: { id: email } }); // redirect to home page
                     }
                 })

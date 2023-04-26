@@ -22,7 +22,7 @@ const Checkout = () => {
 
   const handleSubmit = async (event)=>{
     event.preventDefault();
-    const response = await axios.post(`/updateSeat/${seats}/${id}/${date}/${time}`);
+    const response = await axios.post(`/updateSeat/${seats}/${id}/${date}/${time}/${localStorage.getItem('user')}}`);
     console.log(response);
   }
 
