@@ -22,7 +22,7 @@ const Checkout = () => {
 
   const handleSubmit = async (event)=>{
     event.preventDefault();
-    const response = await axios.post(`/updateSeat/${seats}/${id}/${date}/${time}/${localStorage.getItem('user')}}`);
+    const response = await axios.post(`https://movie-booking-backend-4vy6.onrender.com/updateSeat/${seats}/${id}/${date}/${time}/${localStorage.getItem('user')}}`);
     console.log(response);
   }
 

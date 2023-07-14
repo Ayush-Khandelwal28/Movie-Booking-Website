@@ -4,7 +4,6 @@ import LandingPage from "./pages/LandingPage";
 import MovieDetailPage from "./pages/MovieDetailPage";
 import SeatSelectionPage from "./pages/SeatSelectionPage";
 import CheckoutPage from "./pages/CheckoutPage";
-import ConfirmationPage from "./pages/ConfirmationPage";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import MovieForm from "./pages/MovieForm";
@@ -20,7 +19,6 @@ const App = () => {
           element={<SeatSelectionPage />}
         />
         <Route exact path="/checkout/:seats/:id/:date/:time" element={<CheckoutPage />} />
-        <Route exact path="/confirmation" element={<ConfirmationPage />} />
         <Route exact path="/login" element={<Login />} />
         <Route exact path="/signup" element={<SignUp />} />
         <Route exact path="/movieForm" element={<MovieForm />} />

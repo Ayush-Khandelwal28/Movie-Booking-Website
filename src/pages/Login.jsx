@@ -12,7 +12,7 @@ function Login() {
     async function submit(e) {
         e.preventDefault();
         try {
-            await axios.post("http://localhost/login", {
+            await axios.post("https://movie-booking-backend-4vy6.onrender.com/login", {
                 email, password
             })
                 .then(res => {

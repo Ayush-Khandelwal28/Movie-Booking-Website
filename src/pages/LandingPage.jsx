@@ -19,7 +19,7 @@ const LandingPage = () => {
 
   useEffect(() => {
     async function fetchMovies() {
-      const response = await fetch("/movies");
+      const response = await fetch("https://movie-booking-backend-4vy6.onrender.com/movies");
       const data = await response.json();
       setMovies(data);
     }

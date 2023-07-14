@@ -28,7 +28,7 @@ function MovieForm() {
         }
         try {
             await axios
-                .post("http://localhost/movieForm", {
+                .post("https://movie-booking-backend-4vy6.onrender.com/movieForm", {
                     title,
                     duration,
                     release,

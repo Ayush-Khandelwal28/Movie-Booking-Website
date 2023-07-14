@@ -35,7 +35,7 @@ function SignUp() {
         }
         
         try {
-            await axios.post("http://localhost/signup", {
+            await axios.post("https://movie-booking-backend-4vy6.onrender.com/signup", {
                 email, firstname, lastname, password, confirmpassword
             })
                 .then(res => {

@@ -16,7 +16,7 @@ const MovieDetailPage = () => {
 
   useEffect(() => {
     async function fetchMovie() {
-      const response = await axios.get(`/movies/${id}`);
+      const response = await axios.get(`https://movie-booking-backend-4vy6.onrender.com/movies/${id}`);
       const data = await response.data;
       console.log(data);
       setMovie(data);
